@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "first_name": "Jeanette",
+    "last_name": "Penddreth",
+    "contact_info": [
+      {"email": "jpenddreth0@census.gov", "phone":  "650-555-9887"},
+      {"email": "jpenddreth0@gmail.com", "phone":  "650-555-1100"}
+    ],
+    "gender": "Female",
+    "salary": 84340.5,
+    "active": true,
+    "address": {
+      "house_number": "1234, Elite Apartments, Oak Street",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": 90212
+    }
+  }, {
+    "id": 2,
+    "first_name": "Giavani",
+    "last_name": "Frediani",
+    "contact_info": [
+      {"email": "gfrediani1@senate.gov", "phone": "423-555-3456"}
+    ],
+    "gender": "Male",
+    "salary": 100500.0,
+    "active": false,
+    "address": {
+      "house_number": "1100, Mockingbird Ave",
+      "city": "Knoxville",
+      "state": "TN",
+      "zip": 37921
+    }
+  }, {
+    "id": 3,
+    "first_name": "Noell",
+    "last_name": "Bea",
+    "contact_info": [
+      {"email": "nbea2@imageshack.us", "phone": "313-555-5768"},
+      {"email": "noellbea@yahoo.com", "phone": "313-555-5768"},
+      {"email": "noell.bea@gmail.com", "phone": "313-555-5768"}
+    ],
+    "gender": "Female",
+    "salary": 45000.0,
+    "active": true,
+    "address": {
+      "house_number": "3042 Lower Fortnum Way",
+      "city": "Salt Lake City",
+      "state": "UT",
+      "zip": 84105
+    }
+  }
+]

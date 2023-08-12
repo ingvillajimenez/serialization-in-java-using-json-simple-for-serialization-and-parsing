@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "first_name": "Jeanette",
+    "last_name": "Penddreth",
+    "email": [
+      "jpenddreth0@census.gov",
+      "jpenddreth0@gmail.com"
+    ],
+    "gender": "Female",
+    "salary": 84340.5,
+    "active": true,
+    "address": {
+      "house_number": "1234, Elite Apartments, Oak Street",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": 90212
+    }
+  }, {
+    "id": 2,
+    "first_name": "Giavani",
+    "last_name": "Frediani",
+    "email": [
+      "gfrediani1@senate.gov"
+    ],
+    "gender": "Male",
+    "salary": 100500.0,
+    "active": false,
+    "address": {
+      "house_number": "1100, Mockingbird Ave",
+      "city": "Knoxville",
+      "state": "TN",
+      "zip": 37921
+    }
+  }, {
+    "id": 3,
+    "first_name": "Noell",
+    "last_name": "Bea",
+    "email": ["nbea2@imageshack.us", "noellbea@yahoo.com", "noell.bea@gmail.com"],
+    "gender": "Female",
+    "salary": 45000.0,
+    "active": true,
+    "address": {
+      "house_number": "3042 Lower Fortnum Way",
+      "city": "Salt Lake City",
+      "state": "UT",
+      "zip": 84105
+    }
+  }, {
+    "id": 4,
+    "first_name": "Willard",
+    "last_name": "Valek",
+    "email": ["wvalek3@vk.com", "wvalek333@hotmail.com"],
+    "gender": "Male",
+    "salary": 25500.0,
+    "active": false,
+    "address": {
+      "house_number": "7863 Scarsdale Heights Freeway",
+      "city": "St. Petersburg",
+      "state": "FL",
+      "zip": 33701
+    }
+  }
+]
