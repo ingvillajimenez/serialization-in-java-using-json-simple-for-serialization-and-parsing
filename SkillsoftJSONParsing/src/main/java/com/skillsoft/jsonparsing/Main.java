@@ -1,65 +1,161 @@
 package com.skillsoft.jsonparsing;
 
+import org.json.simple.JSONArray; // class JSONArray
 import org.json.simple.JSONObject; // class JSONObject
 import org.json.simple.JSONValue; // class JSONValue
 
-import java.io.FileWriter; // class FileWriter
 import java.io.FileReader; // class FileReader
+import java.io.FileWriter; // class FileWriter
 import java.io.IOException; // class IOException
 
 public class Main {
 
-//    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
 
         System.out.println("**** Reading JSON");
 
-        try (FileReader reader = new FileReader("diner.json")) {
+        try(FileReader reader = new FileReader("diners.json")) {
 
-            JSONObject dinerData = (JSONObject) JSONValue.parse(reader);
-            System.out.println(dinerData);
-            //{"gender":null,"isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27}
+            JSONObject dinerListObject = (JSONObject) JSONValue.parse(reader);
+            System.out.println(dinerListObject);
+            //{"diners":[{"gender":"Female","isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27},{"name":"Json Snow","age":25,"amountSpent":750.5}]}
 
-            String name = (String) dinerData.get("name");
-            System.out.println("\ndiner name: " + name); //diner name: Jane Stark
+            JSONArray dinerList = (JSONArray) dinerListObject.get("diners");
 
-            String gender = (String) dinerData.get("gender");
-            System.out.println("diner gender: " + gender); //diner gender: null
+            for (Object object : dinerList) {
+                JSONObject diner = (JSONObject) object;
 
-            long age = (long) dinerData.get("age");
-            System.out.println("diner age: " + age); //diner age: 22
+                System.out.println("\n**** Diner");
 
-            double amountSpent = (double) dinerData.get("amountSpent");
-            System.out.println("diner spending: " + amountSpent); //diner spending: 153.27
-
-            Boolean isAllergic = (Boolean) dinerData.get("isAllergic");
-            System.out.println("diner isAllergic: " + isAllergic); //diner isAllergic: false
-
+                for (Object field: diner.entrySet() ) {
+                    System.out.println(field);
+                }
+            }
+            //**** Diner
+            //gender=Female
+            //isAllergic=false
+            //name=Jane Stark
+            //age=22
+            //amountSpent=153.27
+            //
+            //**** Diner
+            //name=Json Snow
+            //age=25
+            //amountSpent=750.5
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("**** Completed reading JSON");
 
-//        System.out.println("**** Creating JSONObject");
+//        System.out.println("**** Creating JSONArray of JSONObjects");
 //
-//        JSONObject diner = new JSONObject();
+//        JSONObject dinerListObject = new JSONObject();
 //
-//        diner.put("name", "Jane Stark");
-//        diner.put("age", 22);
-//        diner.put("gender", null);
-//        diner.put("isAllergic", false);
-//        diner.put("amountSpent", 153.27);
+//        JSONArray dinerList = new JSONArray();
 //
-//        System.out.println(diner.toJSONString());
-//        //{"gender":null,"isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27}
+//        JSONObject diner1 = new JSONObject();
+//        diner1.put("name", "Jane Stark");
+//        diner1.put("age", 22);
+//        diner1.put("gender", "Female");
+//        diner1.put("isAllergic", false);
+//        diner1.put("amountSpent", 153.27);
 //
-//        try (FileWriter file = new FileWriter("diner.json")) {
-//            diner.writeJSONString(file);
+//        JSONObject diner2 = new JSONObject();
+//        diner2.put("name", "Json Snow");
+//        diner2.put("age", 25);
+//        diner2.put("amountSpent", 750.5);
+//
+//        dinerList.add(diner1);
+//        dinerList.add(diner2);
+//
+//        dinerListObject.put("diners", dinerList);
+//
+//        System.out.println(dinerListObject);
+//        //{"diners":[{"gender":"Female","isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27},{"name":"Json Snow","age":25,"amountSpent":750.5}]}
+//
+//        try (FileWriter file = new FileWriter("diners.json")) {
+//            dinerListObject.writeJSONString(file);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
 //
-//        System.out.println("**** Writing out JSONObject");
+//        System.out.println("**** Writing out JSONArray of JSONObjects");
+
+//        System.out.println("**** Reading JSON");
+//
+//        try (FileReader reader = new FileReader("diners.json")) {
+//
+//            JSONArray dinerList = (JSONArray) JSONValue.parse(reader);
+//            System.out.println(dinerList);
+//            //[{"gender":"Female","isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27},{"gender":"Male","isAllergic":false,"name":"Json Snow","age":25,"amountSpent":750.5}]
+//
+//            for (Object object : dinerList) {
+//                JSONObject diner = (JSONObject) object;
+//
+//                System.out.println("\n**** Diner");
+//
+//                String name = (String) diner.get("name");
+//                System.out.println("\ndiner name: " + name);
+//                //diner name: Jane Stark
+//                //diner name: Json Snow
+//
+//                String gender = (String) diner.get("gender");
+//                System.out.println("diner gender: " + gender);
+//                //diner gender: Female
+//                //diner gender: Male
+//
+//                long age = (long) diner.get("age");
+//                System.out.println("diner age: " + age);
+//                //diner age: 22
+//                //diner age: 25
+//
+//                double amountSpent = (double) diner.get("amountSpent");
+//                System.out.println("diner spending: " + amountSpent);
+//                //diner spending: 153.27
+//                //diner spending: 750.5
+//
+//                Boolean isAllergic = (Boolean) diner.get("isAllergic");
+//                System.out.println("diner isAllergic: " + isAllergic);
+//                //diner isAllergic: false
+//                //diner isAllergic: false
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("**** Completed reading JSON");
+
+//        System.out.println("**** Creating JSONArray of JSONObjects");
+//
+//        JSONArray dinerList = new JSONArray();
+//
+//        JSONObject diner1 = new JSONObject();
+//        diner1.put("name", "Jane Stark");
+//        diner1.put("age", 22);
+//        diner1.put("gender", "Female");
+//        diner1.put("isAllergic", false);
+//        diner1.put("amountSpent", 153.27);
+//
+//        JSONObject diner2 = new JSONObject();
+//        diner2.put("name", "Json Snow");
+//        diner2.put("age", 25);
+//        diner2.put("gender", "Male");
+//        diner2.put("isAllergic", false);
+//        diner2.put("amountSpent", 750.5);
+//
+//        dinerList.add(diner1);
+//        dinerList.add(diner2);
+//
+//        System.out.println(dinerList);
+//        //[{"gender":"Female","isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27},{"gender":"Male","name":"Json Snow","isAllerigc":false,"age":25,"amountSpent":750.5}]
+//
+//        try (FileWriter file = new FileWriter("diners.json")) {
+//            dinerList.writeJSONString(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("**** Writing out JSONArray of JSONObjects");
     }
 }
 
