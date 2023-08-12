@@ -1,1 +1,1 @@
-{"diners":[{"gender":"Female","isAllergic":false,"name":"Jane Stark","age":22,"amountSpent":153.27},{"name":"Json Snow","age":25,"amountSpent":750.5}]}
+{"diners":[{"gender":"Female","isAllergic":false,"contact":[{"number":"212-555-1234","type":"home"},{"number":"646-555-4567","type":"mobile"}],"name":"Jane Stark","age":22,"amountSpent":153.27}]}
