@@ -1,1 +1,1 @@
-{"diners":["gender":"Female","isAllergic":false,"contact":[{"number":"212-555-1234","type":"home"},{"number":"646-555-4567","type":"mobile"}],"name":"Jane Stark","age":22,"amountSpent":153.27}]}
+[{"name":"Sansa Stark","age":22,"gender":"Female","amountSpent":153.5},{"name":"Arya Stark","age":20,"gender":"Female","amountSpent":700.5}]

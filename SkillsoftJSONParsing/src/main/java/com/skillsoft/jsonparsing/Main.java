@@ -1,87 +1,56 @@
 package com.skillsoft.jsonparsing;
 
-import org.json.simple.JSONObject; // class JSONObject
-import org.json.simple.JSONValue; // class JSONValue
+import org.json.simple.JSONArray; // class JSONArray
 
+import java.io.FileWriter; // class FileWriter
 import java.io.IOException; // class IOException
-import java.io.StringWriter; // class StringWriter
-import java.util.Comparator; // interface Comparator
-import java.util.Map; // interface Map
-import java.util.TreeMap; // class TreeMap
 
 public class Main {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws IOException {
 
-        System.out.println("**** Creating JSONObject");
+        System.out.println("**** Creating JSONArray of Diners");
 
-        Map<String, Object> movie = new TreeMap<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2) * -1;
-            }
-        });
+        JSONArray dinerList = new JSONArray();
 
-        movie.put("name", "Back to the Future");
-        movie.put("releaseYear", 1985);
-        movie.put("boxOffice", 388.8);
-        movie.put("director", "Robert Zemeckis");
+        Diner diner1 = new Diner("Sansa Stark", 22, "Female", 153.5f);
+        Diner diner2 = new Diner("Arya Stark", 20, "Female", 700.5f);
 
-        StringWriter out = new StringWriter();
-        JSONValue.writeJSONString(movie, out);
+        dinerList.add(diner1);
+        dinerList.add(diner2);
 
-        System.out.println(out.toString());
-        //{"releaseYear":1985,"name":"Back to the Future","director":"Robert Zemeckis","boxOffice":388.8}
+        System.out.println(dinerList);
+        //[com.skillsoft.jsonparsing.Diner@610455d6,com.skillsoft.jsonparsing.Diner@511d50c0]
 
-        System.out.println("**** Predictable ordering stream encoding of JSON object");
+        try (FileWriter file = new FileWriter("diners.json")) {
+            dinerList.writeJSONString(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-//        System.out.println("**** Creating JSONObject");
-//
-//        Map<String, Object> movie = new TreeMap<>();
-//
-//        movie.put("name", "Back to the Future");
-//        movie.put("releaseYear", 1985);
-//        movie.put("boxOffice", 388.8);
-//        movie.put("director", "Robert Zemeckis");
-//
-//        System.out.println(JSONValue.toJSONString(movie));
-//        //{"boxOffice":388.8,"director":"Robert Zemeckis","name":"Back to the Future","releaseYear":1985}
-//
-//        System.out.println("**** Predictable ordering string encoding of JSON object");
+        System.out.println("**** Writing out JSONArray of Diners");
 
-//        System.out.println("**** Creating JSONObject");
+//        System.out.println("**** Creating JSONArray of Diners");
 //
-//        JSONObject movie = new JSONObject();
+//        JSONArray dinerList = new JSONArray();
 //
-//        movie.put("name", "Back to the Future");
-//        movie.put("releaseYear", 1985);
-//        movie.put("boxOffice", 388.8);
-//        movie.put("director", "Robert Zemeckis");
+//        Diner diner1 = new Diner("Jane Stark", 22, "Female", 153.5f);
+//        Diner diner2 = new Diner("Jon Snow", 24, "Male", 767.5f);
 //
-//        StringWriter out = new StringWriter();
-//        movie.writeJSONString(out);
+//        dinerList.add(diner1);
+//        dinerList.add(diner2);
 //
-//        System.out.println(out.toString());
-//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
+//        System.out.println(dinerList);
+//        //[{"name": "Jane Stark", "age": 22, "gender": "Female", "amountSpent": 153.500000},{"name": "Jon Snow", "age": 24, "gender": "Male", "amountSpent": 767.500000}]
 //
-//        System.out.println("**** Stream encoding of JSON object");
-
-//        System.out.println("**** Creatin JSONObject");
+//        try (FileWriter file = new FileWriter("diners.json")) {
+//            dinerList.writeJSONString(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //
-//        JSONObject movie = new JSONObject();
-//
-//        movie.put("name", "Back to the Future");
-//        movie.put("releaseYear", 1985);
-//        movie.put("boxOffice", 388.8);
-//        movie.put("director", "Robert Zemeckis");
-//
-//        System.out.println(movie.toString());
-//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
-//        System.out.println(movie.toJSONString());
-//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
-//
-//        System.out.println("**** String encoding of JSON object");
+//        System.out.println("**** Writing out JSONArray of Diners");
 
     }
 
