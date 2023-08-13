@@ -1,75 +1,88 @@
 package com.skillsoft.jsonparsing;
 
-import org.json.simple.JSONArray; // class JSONArray
-import org.json.simple.parser.JSONParser; // class JSONParser
-import org.json.simple.parser.ParseException; // class ParseException
+import org.json.simple.JSONObject; // class JSONObject
+import org.json.simple.JSONValue; // class JSONValue
 
-import java.io.FileReader; // class FileReader
 import java.io.IOException; // class IOException
+import java.io.StringWriter; // class StringWriter
+import java.util.Comparator; // interface Comparator
+import java.util.Map; // interface Map
+import java.util.TreeMap; // class TreeMap
 
 public class Main {
 
-    public static void main(String[] args) {
+    @SuppressWarnings("unchecked")
+    public static void main(String[] args) throws IOException {
 
-        System.out.println("**** Reading very large JSON file");
+        System.out.println("**** Creating JSONObject");
 
-        JSONParser jsonParser = new JSONParser();
+        Map<String, Object> movie = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2) * -1;
+            }
+        });
 
-        try (FileReader reader = new FileReader("src/employees.json")) {
-            Object obj = jsonParser.parse(reader);
+        movie.put("name", "Back to the Future");
+        movie.put("releaseYear", 1985);
+        movie.put("boxOffice", 388.8);
+        movie.put("director", "Robert Zemeckis");
 
-            ParsingHandler parsingHandler = new ParsingHandler();
+        StringWriter out = new StringWriter();
+        JSONValue.writeJSONString(movie, out);
 
-            JSONArray jsonObject = (JSONArray) obj;
-            System.out.println(jsonObject);
-            //[{"address":{"zip":90212,"city":"Los Angeles","state":"CA"},"gender":"Female","name":"Jeanette Penddreth","active":true,"id":1,"contact_info":["jpenddreth0@census.gov","jpenddreth0@gmail.com"],"salary":84340.5}]
+        System.out.println(out.toString());
+        //{"releaseYear":1985,"name":"Back to the Future","director":"Robert Zemeckis","boxOffice":388.8}
 
-            jsonParser.parse(obj.toString(), parsingHandler, true);
-            //Start
-            //Start Array
-            //Start Object
-            //Start Object Entry: address
-            //Start Object
-            //Start Object Entry: zip
-            //---90212---
-            //End Object Entry
-            //Start Object Entry: city
-            //---Los Angeles---
-            //End Object Entry
-            //Start Object Entry: state
-            //---CA---
-            //End Object Entry
-            //End Object
-            //End Object Entry
-            //Start Object Entry: gender
-            //---Female---
-            //End Object Entry
-            //Start Object Entry: name
-            //---Jeanette Penddreth---
-            //End Object Entry
-            //Start Object Entry: active
-            //---true---
-            //End Object Entry
-            //Start Object Entry: id
-            //---1---
-            //End Object Entry
-            //Start Object Entry: contact_info
-            //Start Array
-            //---jpenddreth0@census.gov---
-            //---jpenddreth0@gmail.com---
-            //End Array
-            //End Object Entry
-            //Start Object Entry: salary
-            //---84340.5---
-            //End Object Entry
-            //End Object
-            //End Array
-            //End
+        System.out.println("**** Predictable ordering stream encoding of JSON object");
 
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("**** Completed reading JSON");
+//        System.out.println("**** Creating JSONObject");
+//
+//        Map<String, Object> movie = new TreeMap<>();
+//
+//        movie.put("name", "Back to the Future");
+//        movie.put("releaseYear", 1985);
+//        movie.put("boxOffice", 388.8);
+//        movie.put("director", "Robert Zemeckis");
+//
+//        System.out.println(JSONValue.toJSONString(movie));
+//        //{"boxOffice":388.8,"director":"Robert Zemeckis","name":"Back to the Future","releaseYear":1985}
+//
+//        System.out.println("**** Predictable ordering string encoding of JSON object");
+
+//        System.out.println("**** Creating JSONObject");
+//
+//        JSONObject movie = new JSONObject();
+//
+//        movie.put("name", "Back to the Future");
+//        movie.put("releaseYear", 1985);
+//        movie.put("boxOffice", 388.8);
+//        movie.put("director", "Robert Zemeckis");
+//
+//        StringWriter out = new StringWriter();
+//        movie.writeJSONString(out);
+//
+//        System.out.println(out.toString());
+//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
+//
+//        System.out.println("**** Stream encoding of JSON object");
+
+//        System.out.println("**** Creatin JSONObject");
+//
+//        JSONObject movie = new JSONObject();
+//
+//        movie.put("name", "Back to the Future");
+//        movie.put("releaseYear", 1985);
+//        movie.put("boxOffice", 388.8);
+//        movie.put("director", "Robert Zemeckis");
+//
+//        System.out.println(movie.toString());
+//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
+//        System.out.println(movie.toJSONString());
+//        //{"director":"Robert Zemeckis","name":"Back to the Future","boxOffice":388.8,"releaseYear":1985}
+//
+//        System.out.println("**** String encoding of JSON object");
+
     }
 
 }
@@ -95,3 +108,9 @@ public class Main {
 
 // jsonParser.parse()
 // parse(java.io.Reader in, ContentHandler contentHandler, boolean isResume)
+
+// SortedMap
+// A map implemented with entries in a predictable, user-specified, order of keys
+
+// The Comparator Interface
+// Positive: o1 > o2, Negative: o1 < o2, Zero: o1 == o2
