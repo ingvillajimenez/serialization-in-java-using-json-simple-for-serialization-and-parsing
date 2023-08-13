@@ -1,101 +1,75 @@
 package com.skillsoft.jsonparsing;
 
 import org.json.simple.JSONArray; // class JSONArray
-import org.json.simple.JSONObject; // class JSONObject
-import org.json.simple.JSONValue; // class JSONValue
+import org.json.simple.parser.JSONParser; // class JSONParser
+import org.json.simple.parser.ParseException; // class ParseException
 
 import java.io.FileReader; // class FileReader
-import java.io.FileWriter; // class FileWriter
 import java.io.IOException; // class IOException
 
 public class Main {
 
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
 
-        System.out.println("**** Reading JSON");
+        System.out.println("**** Reading very large JSON file");
 
-        try (FileReader reader = new FileReader("diners.json")) {
+        JSONParser jsonParser = new JSONParser();
 
-            JSONObject dinerListObject = (JSONObject) JSONValue.parse(reader);
-            System.out.println(dinerListObject);
-            //{"diners":[{"gender":"Female","isAllergic":false,"contact":[{"number":"212-555-1234","type":"home"},{"number":"646-555-4567","type":"mobile"}],"name":"Jane Stark","age":22,"amountSpent":153.27}]}
+        try (FileReader reader = new FileReader("src/employees.json")) {
+            Object obj = jsonParser.parse(reader);
 
-            JSONArray dinerList = (JSONArray) dinerListObject.get("diners");
+            ParsingHandler parsingHandler = new ParsingHandler();
 
-            for (Object object : dinerList) {
-                JSONObject diner = (JSONObject) object;
+            JSONArray jsonObject = (JSONArray) obj;
+            System.out.println(jsonObject);
+            //[{"address":{"zip":90212,"city":"Los Angeles","state":"CA"},"gender":"Female","name":"Jeanette Penddreth","active":true,"id":1,"contact_info":["jpenddreth0@census.gov","jpenddreth0@gmail.com"],"salary":84340.5}]
 
-                System.out.println("\n**** Diner");
+            jsonParser.parse(obj.toString(), parsingHandler, true);
+            //Start
+            //Start Array
+            //Start Object
+            //Start Object Entry: address
+            //Start Object
+            //Start Object Entry: zip
+            //---90212---
+            //End Object Entry
+            //Start Object Entry: city
+            //---Los Angeles---
+            //End Object Entry
+            //Start Object Entry: state
+            //---CA---
+            //End Object Entry
+            //End Object
+            //End Object Entry
+            //Start Object Entry: gender
+            //---Female---
+            //End Object Entry
+            //Start Object Entry: name
+            //---Jeanette Penddreth---
+            //End Object Entry
+            //Start Object Entry: active
+            //---true---
+            //End Object Entry
+            //Start Object Entry: id
+            //---1---
+            //End Object Entry
+            //Start Object Entry: contact_info
+            //Start Array
+            //---jpenddreth0@census.gov---
+            //---jpenddreth0@gmail.com---
+            //End Array
+            //End Object Entry
+            //Start Object Entry: salary
+            //---84340.5---
+            //End Object Entry
+            //End Object
+            //End Array
+            //End
 
-                for (Object keyObj : diner.keySet()) {
-                    String key = (String) keyObj;
-
-                    if (key.equals("contact")) {
-
-                        JSONArray contactList = (JSONArray) diner.get(key);
-
-                        System.out.println("Contacts: ");
-                        for (Object contact : contactList) {
-
-                            JSONObject contactJSON = (JSONObject) contact;
-
-                            System.out.format("{**Number: %s, Type: %s**}\n",
-                                    contactJSON.get("number"), contactJSON.get("type"));
-                            //{**Number: 212-555-1234, Type: home**}
-                            //{**Number: 646-555-4567, Type: mobile**}
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         System.out.println("**** Completed reading JSON");
-
-//        System.out.println("**** Creating JSONArray of JSONObjects");
-//
-//        JSONObject dinerListObject = new JSONObject();
-//
-//        JSONArray dinerList = new JSONArray();
-//
-//        JSONObject diner1 = new JSONObject();
-//        diner1.put("name", "Jane Stark");
-//        diner1.put("age", 22);
-//        diner1.put("gender", "Female");
-//        diner1.put("isAllergic", false);
-//        diner1.put("amountSpent", 153.27);
-//
-//        JSONArray contactList = new JSONArray();
-//        JSONObject contact1 = new JSONObject();
-//
-//        contact1.put("type", "home");
-//        contact1.put("number", "212-555-1234");
-//
-//        JSONObject contact2 = new JSONObject();
-//
-//        contact2.put("type", "mobile");
-//        contact2.put("number", "646-555-4567");
-//
-//        contactList.add(contact1);
-//        contactList.add(contact2);
-//
-//        diner1.put("contact", contactList);
-//
-//        dinerList.add(diner1);
-//
-//        dinerListObject.put("diners", dinerList);
-//
-//        System.out.println(dinerListObject);
-//        //{"diners":[{"gender":"Female","isAllergic":false,"contact":[{"number":"212-555-1234","type":"home"},{"number":"646-555-4567","type":"mobile"}],"name":"Jane Stark","age":22,"amountSpent":153.27}]}
-//
-//        try (FileWriter file = new FileWriter("diners.json")) {
-//            dinerListObject.writeJSONString(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println("**** Writing out JSONArray of JSONObjects");
     }
 
 }
@@ -110,3 +84,14 @@ public class Main {
 //Project object Model is the fundamental unit of work in Maven
 
 // jsonformatter.org/json-pretty-print
+
+// SAX Interface
+// Simple API
+
+// SAX Interface
+// Callback-based interface to parsing documents, entire document is NOT loaded in memory
+
+// ContentHandler interface is used to provide a SAX like interface to stream the large json
+
+// jsonParser.parse()
+// parse(java.io.Reader in, ContentHandler contentHandler, boolean isResume)
